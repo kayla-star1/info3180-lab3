@@ -3,7 +3,6 @@ from flask_mail import Message
 from app import app, mail
 from .forms import ContactForm
 
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 ###
 # Routing for your application.
@@ -26,17 +25,17 @@ def contact():
     """Render the website's contact page."""
     myform = ContactForm()
     if request.method == 'POST':
-        if myform.validate_on_submit():
-            name = myform.name.data
-            email = myform.email.data
-            subject = myform.subject.data
-            message = myform.message.data
-            
-            msg = Message(subject, sender=(name, email), recipients=["4bb90f3d04-268618+1@inbox.mailtrap.io"])
-            msg.body = message
-            mail.send(msg) 
-            flash('Form submitted successfully!')
-            return redirect(url_for('home'))
+        #if myform.validate_on_submit():
+        name = myform.name.data
+        email = myform.email.data
+        subject = myform.subject.data
+        message = myform.message.data
+        
+        msg = Message(subject, sender=(name, email), recipients=["example@example.com"])
+        msg.body = message
+        mail.send(msg) 
+        flash('Form submitted successfully!')
+        return redirect(url_for('home'))
     return render_template('contact.html', form=myform)
 
 ###
